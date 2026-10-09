@@ -1,69 +1,209 @@
-# CodeIgniter 4 Application Starter
+# E-Commerce Backend
 
-## What is CodeIgniter?
+A REST API backend for an e-commerce web application built with **CodeIgniter 4** and **MySQL**. It provides server-side functionality for user authentication, product management, shopping cart operations, order processing, and payment workflows.
 
-CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure.
-More information can be found at the [official site](https://codeigniter.com).
+## 🚀 Features
 
-This repository holds a composer-installable app starter.
-It has been built from the
-[development repository](https://github.com/codeigniter4/CodeIgniter4).
+* **User Authentication** — User registration and login.
+* **Session-Based Authentication** — Server-side session management.
+* **Role-Based Access Control** — Separate customer and administrator functionality.
+* **Product Management** — Retrieve product information and manage products through backend endpoints.
+* **Shopping Cart** — Add products, update quantities, remove items, and retrieve cart details.
+* **Order Management** — Process orders and maintain order records.
+* **Payment Processing** — Support for the application's payment workflow, including simulated payments and Razorpay integration fields.
+* **Invoice Generation** — Generate PDF invoices for orders.
+* **REST API** — Provide API endpoints for the React frontend.
+* **Database Integration** — Store application data in MySQL.
 
-More information about the plans for version 4 can be found in [CodeIgniter 4](https://forum.codeigniter.com/forumdisplay.php?fid=28) on the forums.
+## 🛠️ Tech Stack
 
-You can read the [user guide](https://codeigniter.com/user_guide/)
-corresponding to the latest version of the framework.
+* PHP
+* CodeIgniter 4
+* MySQL
+* REST API
+* Composer
+* React frontend integration
+* Razorpay (payment integration, depending on the configured implementation)
 
-## Installation & updates
+## 📁 Project Structure
 
-`composer create-project codeigniter4/appstarter` then `composer update` whenever
-there is a new release of the framework.
+```text
+ecommerce_app_backend/
+├── app/
+│   ├── Config/
+│   ├── Controllers/
+│   ├── Database/
+│   │   └── Migrations/
+│   ├── Models/
+│   ├── Views/
+│   │   └── invoices/
+│   └── ...
+├── public/
+├── tests/
+├── writable/
+├── .env
+├── composer.json
+├── spark
+└── README.md
+```
 
-When updating, check the release notes to see if there are any changes you might need to apply
-to your `app` folder. The affected files can be copied or merged from
-`vendor/codeigniter4/framework/app`.
+*This is a simplified overview. Your actual project may contain additional files and directories.*
 
-## Setup
+## ⚙️ Prerequisites
 
-Copy `env` to `.env` and tailor for your app, specifically the baseURL
-and any database settings.
+Install the following before running the backend:
 
-## Important Change with index.php
+* PHP compatible with your CodeIgniter 4 version
+* Composer
+* MySQL
+* Required PHP extensions for CodeIgniter 4
+* Node.js and npm for running the separate frontend
 
-`index.php` is no longer in the root of the project! It has been moved inside the *public* folder,
-for better security and separation of components.
+## 📦 Installation
 
-This means that you should configure your web server to "point" to your project's *public* folder, and
-not to the project root. A better practice would be to configure a virtual host to point there. A poor practice would be to point your web server to the project root and expect to enter *public/...*, as the rest of your logic and the
-framework are exposed.
+### 1. Clone the repository
 
-**Please** read the user guide for a better explanation of how CI4 works!
+```bash
+git clone https://github.com/AmanShaikhTech10/ecommerce-app.git
+```
 
-## Repository Management
+### 2. Navigate to the backend directory
 
-We use GitHub issues, in our main repository, to track **BUGS** and to track approved **DEVELOPMENT** work packages.
-We use our [forum](http://forum.codeigniter.com) to provide SUPPORT and to discuss
-FEATURE REQUESTS.
+```bash
+cd ecommerce-app/ecommerce_app_backend
+```
 
-This repository is a "distribution" one, built by our release preparation script.
-Problems with it can be raised on our forum, or as issues in the main repository.
+### 3. Install PHP dependencies
 
-## Server Requirements
+```bash
+composer install
+```
 
-PHP version 8.2 or higher is required, with the following extensions installed:
+### 4. Configure the environment
 
-- [intl](http://php.net/manual/en/intl.requirements.php)
-- [mbstring](http://php.net/manual/en/mbstring.installation.php)
+Copy `env` to `.env` if you do not already have an environment file.
 
-> [!WARNING]
-> - The end of life date for PHP 7.4 was November 28, 2022.
-> - The end of life date for PHP 8.0 was November 26, 2023.
-> - The end of life date for PHP 8.1 was December 31, 2025.
-> - If you are still using below PHP 8.2, you should upgrade immediately.
-> - The end of life date for PHP 8.2 will be December 31, 2026.
+Configure the relevant settings in `.env`, including your application environment, base URL, database connection, and session settings.
 
-Additionally, make sure that the following extensions are enabled in your PHP:
+Example database configuration:
 
-- json (enabled by default - don't turn it off)
-- [mysqlnd](http://php.net/manual/en/mysqlnd.install.php) if you plan to use MySQL
-- [libcurl](http://php.net/manual/en/curl.requirements.php) if you plan to use the HTTP\CURLRequest library
+```ini
+CI_ENVIRONMENT = development
+
+app.baseURL = 'http://localhost:8080/'
+
+database.default.hostname = localhost
+database.default.database = ecommerce_db
+database.default.username = your_mysql_username
+database.default.password = your_mysql_password
+database.default.DBDriver = MySQLi
+database.default.port = 3306
+```
+
+Replace the example database name, username, password, and port with your actual local configuration. Create the database in MySQL before running migrations.
+
+**Security:** Never commit `.env` or real database credentials to GitHub.
+
+### 5. Run database migrations
+
+```bash
+php spark migrate
+```
+
+Ensure the database connection is configured correctly before running migrations.
+
+### 6. Start the backend server
+
+```bash
+php spark serve --host 0.0.0.0 --port 8080
+```
+
+The backend will be available locally at:
+
+```text
+http://localhost:8080
+```
+
+## 🔗 Frontend Integration
+
+The backend works with the React frontend located in:
+
+```text
+ecommerce_app_frontend/
+```
+
+The frontend uses Axios to send HTTP requests to the backend API.
+
+When running the frontend and backend on different origins, configure CORS and session cookies appropriately. Use credentials in Axios requests where required by the server-side session authentication setup.
+
+## 🗄️ Database
+
+The backend uses MySQL to persist application data.
+
+Depending on the implemented schema, database tables may include:
+
+* Users
+* Products
+* Cart items
+* Orders
+* Order items
+
+Razorpay-related order fields may also be present for payment processing.
+
+Use the project's migrations to manage database schema changes.
+
+## 💳 Payment Integration
+
+The application includes a payment workflow that may use simulated payments during development.
+
+For Razorpay integration:
+
+* Create an order on the server using the Razorpay API.
+* Send the necessary order information to the frontend.
+* Verify the payment signature on the backend.
+* Update the order and payment status only after successful server-side verification.
+* Keep Razorpay secret keys on the backend and out of frontend code and GitHub.
+
+Use Razorpay Test Mode while developing and testing payment flows.
+
+## 🔐 Security
+
+* Store passwords using secure password hashing.
+* Enforce authentication and authorization on protected API endpoints.
+* Validate and sanitize incoming data.
+* Keep secrets and database credentials in environment configuration.
+* Configure CORS to allow only trusted frontend origins.
+* Protect session-based authentication against CSRF where applicable.
+* Validate uploaded files and restrict file types and sizes.
+* Verify payment details on the server.
+* Use HTTPS in production.
+
+## 🧪 Useful Commands
+
+| Command                    | Description                     |
+| -------------------------- | ------------------------------- |
+| `composer install`         | Install PHP dependencies        |
+| `php spark serve`          | Start the development server    |
+| `php spark migrate`        | Run pending database migrations |
+| `php spark migrate:status` | Check migration status          |
+| `php spark routes`         | Display registered routes       |
+| `php spark test`           | Run the configured test suite   |
+
+## 🚧 Future Enhancements
+
+* Complete Razorpay payment verification and webhook handling.
+* Add product search, filtering, and sorting APIs.
+* Improve API validation and standardized error responses.
+* Add automated tests for authentication, cart, orders, and payments.
+* Implement production logging and monitoring.
+* Deploy the backend with secure environment configuration.
+
+## 👨‍💻 Author
+
+**Aman Shaikh**
+
+GitHub: [@AmanShaikhTech10](https://github.com/AmanShaikhTech10)
+
+## 📄 License
+
+No license has been specified yet. Add an appropriate license before permitting others to reuse or distribute this project.
