@@ -1,0 +1,131 @@
+:root {
+  --amazon-nav: #232f3e;
+  --amazon-bg: #eaeded;
+  --amazon-yellow: #ffd814;
+  --amazon-yellow-hover: #f7ca00;
+  --amazon-link: #007185;
+  --amazon-link-hover: #c45500;
+  --amazon-price: #B12704;
+  --text-main: #0f1111;
+}
+
+/* Global Reset & Typography */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Amazon Ember", Arial, sans-serif;
+  background-color: var(--amazon-bg);
+  color: var(--text-main);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Main Content Wrapper (Targets the div right below Navbar in App.jsx) */
+#root > div:nth-child(2) {
+  background-color: #ffffff;
+  max-width: 1400px;
+  margin: 20px auto;
+  border-radius: 4px;
+  min-height: calc(100vh - 100px);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* Links */
+a {
+  color: var(--amazon-link);
+  transition: color 0.1s;
+}
+
+a:hover {
+  color: var(--amazon-link-hover);
+  text-decoration: underline;
+}
+
+/* Navbar specific links */
+nav a {
+  color: #ffffff !important;
+  font-weight: 500;
+  padding: 5px 2px;
+}
+
+nav a:hover {
+  color: #cccccc !important;
+  text-decoration: none !important;
+}
+
+/* Form Inputs (Amazon Style) */
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+  border: 1px solid #a6a6a6;
+  border-top-color: #949494;
+  border-radius: 3px;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5), 0 1px 0 rgba(0, 0, 0, 0.07) inset;
+  outline: none;
+  font-size: 1rem;
+  transition: all 0.2s ease-in-out;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus {
+  border-color: #e77600;
+  box-shadow: 0 0 3px 2px rgba(228, 121, 17, 0.5);
+}
+
+/* Global Button States */
+button {
+  transition: background-color 0.2s, filter 0.2s, box-shadow 0.2s;
+  font-family: inherit;
+}
+
+button:hover:not(:disabled) {
+  filter: brightness(0.95);
+}
+
+button:active:not(:disabled) {
+  filter: brightness(0.9);
+  transform: translateY(1px);
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed !important;
+}
+
+/* Product Card Hover Effect (Targets the product grid items) */
+div[style*="border: 1px solid #ddd"] {
+  background: #fff;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+div[style*="border: 1px solid #ddd"]:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Table Enhancements (Cart & Admin) */
+table {
+  background: #fff;
+}
+
+th {
+  color: #555;
+  font-weight: 600;
+}
+
+tr:hover td {
+  background-color: #fcfcfc;
+}
+
+/* General Layout Tweaks */
+h1, h2, h3 {
+  font-weight: 400;
+}
+
+h2 {
+  font-size: 1.75rem;
+  padding-bottom: 10px;
+}
